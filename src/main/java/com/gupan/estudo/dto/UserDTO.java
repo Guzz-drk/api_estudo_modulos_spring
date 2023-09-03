@@ -69,6 +69,9 @@ public class UserDTO implements UserDetails{
 	@JsonFormat(shape = Shape.STRING, pattern = "yyyy/MM/dd HH:mm:ss", locale = "pt_BR", timezone = "America/Sao_Paulo")
 	@Column(name = "edited_at")
 	private LocalDateTime editedAt;
+	
+	@Column(name = "cd_type_user")
+	private Long cdTypeUser;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
