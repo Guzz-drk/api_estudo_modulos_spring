@@ -54,4 +54,12 @@ public class UserService {
 	public Page<List<UserEntity>> getDirectors(Pageable page) {
 		return userEntityRepository.getListUsersDirectors(page);
 	}
+	
+	public Page<List<UserEntity>> getStudentsByClass(Pageable page, Long cdClass){
+		return userEntityRepository.getStudentsByClass(page, cdClass);
+	}
+	
+	public Page<List<UserEntity>> getTeachersByClass(Pageable page, Long cdClass){
+		return userEntityRepository.getTeachersByClass(page, cdClass);
+	}
 }

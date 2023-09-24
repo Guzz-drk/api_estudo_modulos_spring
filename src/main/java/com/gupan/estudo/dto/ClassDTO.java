@@ -44,4 +44,9 @@ public class ClassDTO {
 	@Column(name = "edited_at")
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private LocalDateTime editedAt;
+
+	public ClassDTO(Long cdClass) {
+		super();
+		this.cdClass = cdClass;
+	}
 }
