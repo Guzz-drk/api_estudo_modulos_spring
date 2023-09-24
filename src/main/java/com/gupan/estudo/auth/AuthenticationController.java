@@ -30,9 +30,14 @@ public class AuthenticationController {
 	
 	@PostMapping
 	public ResponseEntity<?> login(@RequestBody @Validated DadosAutenticacao dados){
-		var token = new UsernamePasswordAuthenticationToken(dados.mail(), dados.password());
-		var authentication = manager.authenticate(token);
-		var tokenJWT = tokenService.gerarToken((UserDTO) authentication.getPrincipal());
-		return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));
+		Long cdTypeUser = userRepository.getCdTypeUserByDsEmail(dados.mail());
+		if(cdTypeUser == 3 || cdTypeUser == 4) {
+			var token = new UsernamePasswordAuthenticationToken(dados.mail(), dados.password());
+			var authentication = manager.authenticate(token);
+			var tokenJWT = tokenService.gerarToken((UserDTO) authentication.getPrincipal());
+			return ResponseEntity.ok(new DadosTokenJWT(tokenJWT));	
+		} else {
+			return ResponseEntity.badRequest().body("Usuário sem permissão de acesso!");
+		}
 	}
 }

@@ -37,4 +37,26 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Long>{
 			+ "where type_users.ds_type_user ilike 'diretor%'  "
 			+ "order by users.dt_birth")
 	public Page<List<UserEntity>> getListUsersDirectors(Pageable page);
+	
+	@Query(nativeQuery = true, value = "select u.cd_user, u.nm_user, u.ds_mail, u.dt_birth, "
+			+ "tu.ds_type_user as type_user, extract(year from age(current_date, u.dt_birth))\\:\\: int as age "
+			+ "from class_student as cs "
+			+ "right join users u  "
+			+ "on cs.cd_user = u.cd_user  "
+			+ "right join type_users tu "
+			+ "on u.cd_type_user = tu.cd_type_user  "
+			+ "where cs.cd_class = :cdClass  "
+			+ "order by u.nm_user asc ")
+	public Page<List<UserEntity>> getStudentsByClass(Pageable page, Long cdClass);
+	
+	@Query(nativeQuery = true, value = "select u.cd_user, u.nm_user, u.ds_mail, u.dt_birth, "
+			+ "tu.ds_type_user as type_user, extract(year from age(current_date, u.dt_birth))\\:\\: int as age "
+			+ "from class_teacher as ct "
+			+ "right join users u  "
+			+ "on ct.cd_user = u.cd_user  "
+			+ "right join type_users tu "
+			+ "on u.cd_type_user = tu.cd_type_user  "
+			+ "where ct.cd_class = :cdClass  "
+			+ "order by u.nm_user asc ")
+	public Page<List<UserEntity>> getTeachersByClass(Pageable page, Long cdClass);
 }

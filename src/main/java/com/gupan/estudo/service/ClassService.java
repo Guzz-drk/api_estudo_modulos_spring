@@ -23,4 +23,8 @@ public class ClassService {
 	public Page<List<ClassDTO>> getListClasses(Pageable page){
 		return classRepository.getListClasses(page);
 	}
+	
+	public List<ClassDTO> findAll(){
+		return classRepository.findAll();
+	}
 }
