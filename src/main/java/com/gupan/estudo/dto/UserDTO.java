@@ -114,4 +114,9 @@ public class UserDTO implements UserDetails{
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	public UserDTO(Long cdUser) {
+		super();
+		this.cdUser = cdUser;
+	}
 }
